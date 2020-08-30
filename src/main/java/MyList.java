@@ -28,7 +28,7 @@ public class MyList {
         case ("event"):
             commandLength = 5;
             slashIndex = itemInfo.indexOf("/");
-            return new Deadline(itemInfo.substring(commandLength+1, slashIndex-1), itemInfo.substring(slashIndex+1));
+            return new Event(itemInfo.substring(commandLength+1, slashIndex-1), itemInfo.substring(slashIndex+1));
 
         default:
             commandLength = -1;
@@ -49,7 +49,9 @@ public class MyList {
         Task item = this.produceTask(itemInfo);
         this.things[this.size] = item;
         this.size++;
-        System.out.printf("\nadded: %s\n", item.getName());
+        System.out.printf("\nGot it. I've added this task:");
+        System.out.printf("\n  %s", item.toString());
+        System.out.printf("\nNow you have %d tasks in the list.\n", size);
     }
 
     public int getSize(){
