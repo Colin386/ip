@@ -8,9 +8,6 @@ public class Duke {
     public static void welcomeMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-
-
-
     }
 
     public static void goodbyeMessage() {
@@ -38,19 +35,15 @@ public class Duke {
                 String[] info = command.split(" ");
                 int index;
 
-                if (info.length == 1){
-                    items.addItem(new Task(command));
-                }
-
                 index = Integer.parseInt(info[1]);
                 items.completeTask(index);
 
 
-            } else {
+            } else { //process the commands
 
-                items.addItem(new Task(command));
+                items.addItem(command);
             }
-            //System.out.println(command);
+
         }
 
     }

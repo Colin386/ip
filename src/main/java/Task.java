@@ -5,6 +5,7 @@ public class Task {
     private String name;
     private boolean isDone;
 
+
     public Task(String thing){
         this.name = thing;
         this.isDone = false;
@@ -23,5 +24,18 @@ public class Task {
     public void setStatus(boolean state){
 
         this.isDone = state;
+    }
+
+    @Override
+    public String toString() {
+
+        String bracketSymbol;
+
+        if (this.isDone) {
+            bracketSymbol = "[✓] ";
+        } else {
+            bracketSymbol = "[✗] ";
+        }
+        return bracketSymbol + this.getName();
     }
 }
