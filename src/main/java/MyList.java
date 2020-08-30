@@ -59,7 +59,7 @@ public class MyList {
     }
 
     public void printList(){
-
+        System.out.printf("\nHere are the tasks in your list:");
         for (int i = 0; i < this.getSize(); i++){
             Task item = this.things[i];
             System.out.printf("\n%d.", i+1);
