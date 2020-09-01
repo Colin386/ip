@@ -38,8 +38,8 @@ public class Duke {
                 index = Integer.parseInt(info[1]);
                 items.completeTask(index);
 
-
-            } else { //process the commands
+            //add the thing into the list
+            } else {
 
                 items.addItem(command);
             }

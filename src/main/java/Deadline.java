@@ -10,7 +10,12 @@ public class Deadline extends Task{
         this.byDate = date.substring(BY_LENGTH);
     }
 
+    public String formatDate() {
+        return " (by: " + this.byDate + ")";
+    }
+
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byDate + ")";
+
+        return "[D]" + super.toString() + this.formatDate();
     }
 }

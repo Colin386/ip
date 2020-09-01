@@ -10,8 +10,13 @@ public class Event extends Task {
         atDate = date.substring(AT_LENGTH);
     }
 
+    public String formatDate() {
+        return " (at: " + this.atDate + ")";
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + this.atDate + ")";
+
+        return "[E]" + super.toString() + this.formatDate();
     }
 }
