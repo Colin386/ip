@@ -4,18 +4,32 @@ import java.util.Scanner;
 
 public class Duke {
 
-    //Function prints a simple welcome message
+    /**
+     * Prints a welcome message on the screen
+     *
+     * @return void
+     */
     public static void welcomeMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Prints a goodbye message
+     *
+     */
     public static void goodbyeMessage() {
 
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    //function echo user input
+    /**
+     * Function processes user commands
+     * Terminates if bye is entered by the user
+     * prints out the list of task if "list" is entered
+     * Marks item X as complete when "done X" is entered
+     *
+     */
     public static void echo() {
 
         Scanner in  = new Scanner(System.in);
@@ -48,6 +62,11 @@ public class Duke {
 
     }
 
+    /**
+     * Main Functions, welcomes users, process user commands
+     * Prints goodbye message and terminates.
+     * @param args
+     */
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
