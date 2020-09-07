@@ -1,6 +1,8 @@
 package main.java;
 
 
+import java.util.Arrays;
+
 public class MyList {
 
     /** Array containing all tasks recorded*/
@@ -17,24 +19,34 @@ public class MyList {
 
         String[] wordsEntered = itemInfo.split(" ");
         String itemType = wordsEntered[0];
+        String[] commandInformationWords = Arrays.copyOfRange(wordsEntered,1, wordsEntered.length);
+        String commandInformation = String.join( " ", commandInformationWords);
+
+
         int commandLength;
         int slashIndex;
 
         switch (itemType) {
 
         case ("todo"):
-            commandLength = 4;
-            return new ToDo(itemInfo.substring(commandLength+1));
+
+            //throw exception if there are too little words
+            if (commandInformationWords.length < 1) {
+                ;
+            }
+            return new ToDo(commandInformation);
 
         case ("deadline"):
-            commandLength = 8;
-            slashIndex = itemInfo.indexOf("/");
-            return new Deadline(itemInfo.substring(commandLength+1, slashIndex-1), itemInfo.substring(slashIndex+1));
+
+            String deadlineInfo = this.extractDate(commandInformation, "/by");
+            String deadlineActivityInfo = this.extractActivity(commandInformation, "/by");
+            return new Deadline(deadlineActivityInfo, deadlineInfo);
 
         case ("event"):
-            commandLength = 5;
-            slashIndex = itemInfo.indexOf("/");
-            return new Event(itemInfo.substring(commandLength+1, slashIndex-1), itemInfo.substring(slashIndex+1));
+
+            String dateInfo = this.extractDate(commandInformation, "/at");
+            String eventInfo = this.extractActivity(commandInformation, "/at");
+            return new Event(eventInfo, dateInfo);
 
         default:
 
@@ -115,5 +127,53 @@ public class MyList {
         System.out.printf("\nNice! I've marked this task as done:");
         System.out.printf("\n[✓] %s\n", this.things[index-1].getName());
     }
-    
+
+    /**
+     * Extracts out the date information that is located after a certain keyword
+     *
+     * @param commandInfo String that contains the user input
+     * @param keyword String containing the keyword that comes immediately before the date. E.g. /by
+     * @return String containing information on the Date found after the keyword
+     */
+    private String extractDate(String commandInfo, String keyword) {
+        int slashIndex = commandInfo.indexOf(keyword);
+        String dateInfo;
+        if (slashIndex < 0) {
+            ; //missing keyword exception
+        }
+
+        dateInfo = commandInfo.substring(slashIndex+1);
+
+
+        if (dateInfo.length() <= keyword.length() - 1) {
+            ; //missing date exception
+        }
+
+        return dateInfo;
+    }
+
+    /**
+     * Extracts out the Activity information that is located before a certain keyworkd
+     *
+     * @param commandInfo String that contains the user input
+     * @param keyword String containing a keyword that comes immediately before the date e.g. /by
+     * @return String containing the activity information
+     */
+    private String extractActivity(String commandInfo, String keyword) {
+        int slashIndex = commandInfo.indexOf(keyword);
+        String activityName;
+        if (slashIndex < 0) {
+            ;//missing keyword exception
+        }
+
+        activityName = commandInfo.substring(0, slashIndex);
+
+        if (activityName.length() <= 0) {
+            ;//missing activity exception
+        }
+        return activityName.trim();
+
+
+    }
+
 }
