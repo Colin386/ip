@@ -7,7 +7,6 @@ public class Duke {
     /**
      * Prints a welcome message on the screen
      *
-     * @return void
      */
     public static void welcomeMessage() {
         System.out.println("Hello! I'm Duke");
@@ -48,9 +47,15 @@ public class Duke {
             } else if (command.contains("done")) {
                 String[] info = command.split(" ");
                 int index;
+                try {
+                    index = Integer.parseInt(info[1]);
+                    items.completeTask(index);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid index number entered");
+                } catch (NumberFormatException e) {
+                    System.out.println("Number missing or invalid");
+                }
 
-                index = Integer.parseInt(info[1]);
-                items.completeTask(index);
 
             //add the thing into the list
             } else {
