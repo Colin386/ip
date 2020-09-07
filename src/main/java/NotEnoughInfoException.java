@@ -2,7 +2,7 @@ package main.java;
 
 public class NotEnoughInfoException extends Exception{
 
-    private String commandName;
+    protected String commandName;
 
     /**
      * Generates a Not Enough Information exception
@@ -20,5 +20,16 @@ public class NotEnoughInfoException extends Exception{
      */
     public String getCommand() {
         return this.commandName;
+    }
+
+    /**
+     * Retrieve the error message
+     * @return Error message
+     */
+    @Override
+    public String getMessage() {
+        String message;
+        message = "Command " + this.commandName + " requires more information";
+        return message;
     }
 }

@@ -15,7 +15,7 @@ public class MyList {
      * @param itemInfo String containing command word, user event and dates
      * @return Task object according to parameters in itemInfo
      */
-    private Task produceTask(String itemInfo) throws UnrecognisedCommandException {
+    private Task produceTask(String itemInfo) throws UnrecognisedCommandException, NotEnoughInfoException {
 
         String[] wordsEntered = itemInfo.split(" ");
         String itemType = wordsEntered[0];
@@ -32,20 +32,25 @@ public class MyList {
 
             //throw exception if there are too little words
             if (commandInformationWords.length < 1) {
-                ;
+                throw new NotEnoughInfoException("todo");
             }
             return new ToDo(commandInformation);
 
         case ("deadline"):
 
-            String deadlineInfo = this.extractDate(commandInformation, "/by");
-            String deadlineActivityInfo = this.extractActivity(commandInformation, "/by");
-            return new Deadline(deadlineActivityInfo, deadlineInfo);
+            try {
+                String deadlineInfo = this.extractDate(commandInformation, "/by", "deadline");
+                String deadlineActivityInfo = this.extractActivity(commandInformation, "/by", "deadline");
+                return new Deadline(deadlineActivityInfo, deadlineInfo);
+            } catch (NotEnoughInfoException e) {
+                throw e;
+            }
+
 
         case ("event"):
 
-            String dateInfo = this.extractDate(commandInformation, "/at");
-            String eventInfo = this.extractActivity(commandInformation, "/at");
+            String dateInfo = this.extractDate(commandInformation, "/at", "event");
+            String eventInfo = this.extractActivity(commandInformation, "/at", "event");
             return new Event(eventInfo, dateInfo);
 
         default:
@@ -82,6 +87,8 @@ public class MyList {
 
         } catch (UnrecognisedCommandException e) {
             System.out.printf("\nI'm sorry, %s is not a recognised command", e.getWrongCommand());
+        } catch (NotEnoughInfoException e) {
+            System.out.println(e.getMessage());
         }
 
 
@@ -133,20 +140,21 @@ public class MyList {
      *
      * @param commandInfo String that contains the user input
      * @param keyword String containing the keyword that comes immediately before the date. E.g. /by
+     * @param caller String of the name of the activity type that called it
      * @return String containing information on the Date found after the keyword
      */
-    private String extractDate(String commandInfo, String keyword) {
+    private String extractDate(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingDateException {
         int slashIndex = commandInfo.indexOf(keyword);
         String dateInfo;
         if (slashIndex < 0) {
-            ; //missing keyword exception
+            throw new MissingKeywordException(caller, keyword); //missing keyword exception
         }
 
         dateInfo = commandInfo.substring(slashIndex+1);
 
 
         if (dateInfo.length() <= keyword.length() - 1) {
-            ; //missing date exception
+            throw new MissingDateException(caller); //missing date exception
         }
 
         return dateInfo;
@@ -157,19 +165,20 @@ public class MyList {
      *
      * @param commandInfo String that contains the user input
      * @param keyword String containing a keyword that comes immediately before the date e.g. /by
+     * @param caller String of the name of the activity type that called it
      * @return String containing the activity information
      */
-    private String extractActivity(String commandInfo, String keyword) {
+    private String extractActivity(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingActivityException{
         int slashIndex = commandInfo.indexOf(keyword);
         String activityName;
         if (slashIndex < 0) {
-            ;//missing keyword exception
+            throw new MissingKeywordException(caller, keyword);
         }
 
         activityName = commandInfo.substring(0, slashIndex);
 
         if (activityName.length() <= 0) {
-            ;//missing activity exception
+            throw new MissingActivityException(caller);
         }
         return activityName.trim();
 
