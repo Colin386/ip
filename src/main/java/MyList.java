@@ -13,7 +13,7 @@ public class MyList {
      * @param itemInfo String containing command word, user event and dates
      * @return Task object according to parameters in itemInfo
      */
-    private Task produceTask(String itemInfo){
+    private Task produceTask(String itemInfo) throws UnrecognisedCommandException {
 
         String[] wordsEntered = itemInfo.split(" ");
         String itemType = wordsEntered[0];
@@ -37,8 +37,8 @@ public class MyList {
             return new Event(itemInfo.substring(commandLength+1, slashIndex-1), itemInfo.substring(slashIndex+1));
 
         default:
-            commandLength = -1;
-            return new Task(itemInfo.substring(commandLength+1));
+
+            throw new UnrecognisedCommandException(itemType);
 
         }
 
@@ -58,14 +58,21 @@ public class MyList {
      *
      * @param itemInfo String containing information to produce the required task
      */
-    public void addItem(String itemInfo) {
+    public void addItem(String itemInfo)  {
 
-        Task item = this.produceTask(itemInfo);
-        this.things[this.size] = item;
-        this.size++;
-        System.out.printf("\nGot it. I've added this task:");
-        System.out.printf("\n  %s", item.toString());
-        System.out.printf("\nNow you have %d tasks in the list.\n", size);
+        try {
+            Task item = this.produceTask(itemInfo);
+            this.things[this.size] = item;
+            this.size++;
+            System.out.printf("\nGot it. I've added this task:");
+            System.out.printf("\n  %s", item.toString());
+            System.out.printf("\nNow you have %d tasks in the list.\n", size);
+
+        } catch (UnrecognisedCommandException e) {
+            System.out.printf("\nI'm sorry, %s is not a recognised command", e.getWrongCommand());
+        }
+
+
     }
 
     /**
@@ -108,4 +115,5 @@ public class MyList {
         System.out.printf("\nNice! I've marked this task as done:");
         System.out.printf("\n[✓] %s\n", this.things[index-1].getName());
     }
+    
 }
