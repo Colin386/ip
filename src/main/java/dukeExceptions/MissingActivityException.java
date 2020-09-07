@@ -1,6 +1,6 @@
-package main.java;
+package main.java.dukeExceptions;
 
-public class MissingActivityException extends NotEnoughInfoException{
+public class MissingActivityException extends NotEnoughInfoException {
     public MissingActivityException(String command) {
         super(command);
     }

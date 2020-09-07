@@ -1,6 +1,12 @@
 package main.java;
 
 
+import main.java.activity.Deadline;
+import main.java.activity.Event;
+import main.java.activity.Task;
+import main.java.activity.ToDo;
+import main.java.dukeExceptions.*;
+
 import java.util.Arrays;
 
 public class MyList {
@@ -173,7 +179,7 @@ public class MyList {
      * @param caller String of the name of the activity type that called it
      * @return String containing the activity information
      */
-    private String extractActivity(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingActivityException{
+    private String extractActivity(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingActivityException {
         int slashIndex = commandInfo.indexOf(keyword);
         String activityName;
         if (slashIndex < 0) {
