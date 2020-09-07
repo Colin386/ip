@@ -1,4 +1,4 @@
-package main.java;
+package main.java.dukeExceptions;
 
 public class MissingKeywordException extends NotEnoughInfoException {
 

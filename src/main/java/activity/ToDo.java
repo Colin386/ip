@@ -1,4 +1,4 @@
-package main.java;
+package main.java.activity;
 
 public class ToDo extends Task{
 
