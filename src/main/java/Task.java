@@ -1,6 +1,6 @@
 package main.java;
 
-public class Task {
+public abstract class Task {
     /** Name of the task*/
     private String name;
     /**Boolean indicating if the job is done or not*/

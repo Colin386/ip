@@ -86,7 +86,7 @@ public class MyList {
             System.out.printf("\nNow you have %d tasks in the list.\n", size);
 
         } catch (UnrecognisedCommandException e) {
-            System.out.printf("\nI'm sorry, %s is not a recognised command", e.getWrongCommand());
+            System.out.printf("\nI'm sorry, %s is not a recognised command\n", e.getWrongCommand());
         } catch (NotEnoughInfoException e) {
             System.out.println(e.getMessage());
         }
@@ -124,15 +124,20 @@ public class MyList {
      *
      * @param index The task number shown on the list to be marked as done
      */
-    public void completeTask(int index){
+    public void completeTask(int index) throws IndexOutOfBoundsException{
 
-        if (index-1 < 0 || index-1 > this.getSize()){
-            System.out.println("Error! No such task exists!");
-            return;
+        if (index-1 < 0 || index-1 >= this.getSize()){
+            throw new IndexOutOfBoundsException();
         }
-        this.things[index-1].setStatus(true);
-        System.out.printf("\nNice! I've marked this task as done:");
-        System.out.printf("\n[✓] %s\n", this.things[index-1].getName());
+
+        if (this.things[index-1].getStatus()) {
+            System.out.printf("\nThe task %s has already been marked as complete\n", this.things[index-1].getName());
+        } else {
+            this.things[index-1].setStatus(true);
+            System.out.printf("\nNice! I've marked this task as done:");
+            System.out.printf("\n[✓] %s\n", this.things[index-1].getName());
+        }
+
     }
 
     /**
