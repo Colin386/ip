@@ -101,6 +101,44 @@ public class MyList {
     }
 
     /**
+     * Function deletes the item at a particular index and shift everything one space to the left
+     *
+     * @param index integer containing index number of item to be deleted
+     */
+    public void deleteItem(int index) throws IndexOutOfBoundsException {
+        int currentSize = this.size;
+
+        if (index < 0 || index >= currentSize) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Task deletedTask = this.things[index];
+        this.things[index] = null;
+
+        System.out.printf("\nNoted, I've removed this task:\n");
+        System.out.printf("  %s\n", deletedTask.toString());
+
+        //shift everything right of the list to the left
+        for (int i = index + 1; i < currentSize; i++) {
+            shiftLeft(i);
+        }
+        this.size = this.size -1;
+        System.out.printf("Now you have %d tasks in the list", this.size);
+
+    }
+
+    /**
+     * Function shifts item one space to the left from the current index
+     *
+     * @param index integer of the index of the item to be shifted to the left
+     */
+    private void shiftLeft(int index) {
+        this.things[index - 1] = this.things[index];
+        this.things[index] = null;
+
+    }
+
+    /**
      * Gets the number of items recorded in the list
      *
      * @return number of items in the list
