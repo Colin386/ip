@@ -7,14 +7,18 @@ import main.java.activity.Task;
 import main.java.activity.ToDo;
 import main.java.dukeExceptions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MyList {
 
     /** Array containing all tasks recorded*/
-    private Task[] things;
+    //private Task[] things;
     /** Number of elements recorded in the array*/
-    private int size;
+    //private int size;
+
+    /**new array list implementation*/
+    private ArrayList<Task> things;
 
     /**
      *
@@ -29,8 +33,7 @@ public class MyList {
         String commandInformation = String.join( " ", commandInformationWords);
 
 
-        int commandLength;
-        int slashIndex;
+
 
         switch (itemType) {
 
@@ -72,8 +75,8 @@ public class MyList {
      * Constructor method for generating a new list of items
      */
     public MyList(){
-        this.size = 0;
-        this.things = new Task[100];
+
+        this.things = new ArrayList<Task>();
     }
 
     /**
@@ -85,11 +88,11 @@ public class MyList {
 
         try {
             Task item = this.produceTask(itemInfo);
-            this.things[this.size] = item;
-            this.size++;
+            things.add(item);
+
             System.out.printf("\nGot it. I've added this task:");
             System.out.printf("\n  %s", item.toString());
-            System.out.printf("\nNow you have %d tasks in the list.\n", size);
+            System.out.printf("\nNow you have %d tasks in the list.\n", things.size());
 
         } catch (UnrecognisedCommandException e) {
             System.out.printf("\nI'm sorry, %s is not a recognised command\n", e.getWrongCommand());
@@ -106,37 +109,24 @@ public class MyList {
      * @param index integer containing index number of item to be deleted
      */
     public void deleteItem(int index) throws IndexOutOfBoundsException {
-        int currentSize = this.size;
+        int currentSize = this.things.size();
 
         if (index < 0 || index >= currentSize) {
             throw new IndexOutOfBoundsException();
         }
 
-        Task deletedTask = this.things[index];
-        this.things[index] = null;
+        Task deletedTask = this.things.get(index);
+        this.things.remove(index);
 
         System.out.printf("\nNoted, I've removed this task:\n");
         System.out.printf("  %s\n", deletedTask.toString());
 
-        //shift everything right of the list to the left
-        for (int i = index + 1; i < currentSize; i++) {
-            shiftLeft(i);
-        }
-        this.size = this.size -1;
-        System.out.printf("Now you have %d tasks in the list", this.size);
+
+        System.out.printf("Now you have %d tasks in the list\n", this.things.size());
 
     }
 
-    /**
-     * Function shifts item one space to the left from the current index
-     *
-     * @param index integer of the index of the item to be shifted to the left
-     */
-    private void shiftLeft(int index) {
-        this.things[index - 1] = this.things[index];
-        this.things[index] = null;
 
-    }
 
     /**
      * Gets the number of items recorded in the list
@@ -144,7 +134,7 @@ public class MyList {
      * @return number of items in the list
      */
     public int getSize(){
-        return this.size;
+        return this.things.size();
     }
 
     /**
@@ -153,7 +143,7 @@ public class MyList {
     public void printList(){
         System.out.printf("\nHere are the tasks in your list:");
         for (int i = 0; i < this.getSize(); i++){
-            Task item = this.things[i];
+            Task item = this.things.get(i);
             System.out.printf("\n%d.", i+1);
 
             System.out.printf("%s", item.toString());
@@ -174,12 +164,12 @@ public class MyList {
             throw new IndexOutOfBoundsException();
         }
 
-        if (this.things[index-1].getStatus()) {
-            System.out.printf("\nThe task %s has already been marked as complete\n", this.things[index-1].getName());
+        if (this.things.get(index-1).getStatus()) {
+            System.out.printf("\nThe task %s has already been marked as complete\n", this.things.get(index-1).getName());
         } else {
-            this.things[index-1].setStatus(true);
+            this.things.get(index-1).setStatus(true);
             System.out.printf("\nNice! I've marked this task as done:");
-            System.out.printf("\n[✓] %s\n", this.things[index-1].getName());
+            System.out.printf("\n[✓] %s\n", this.things.get(index-1).getName());
         }
 
     }
@@ -210,7 +200,7 @@ public class MyList {
     }
 
     /**
-     * Extracts out the Activity information that is located before a certain keyworkd
+     * Extracts out the Activity information that is located before a certain keyword
      *
      * @param commandInfo String that contains the user input
      * @param keyword String containing a keyword that comes immediately before the date e.g. /by

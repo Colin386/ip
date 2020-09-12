@@ -64,7 +64,7 @@ public class Duke {
                     String number = commandArgs[1];
                     number.trim();
                     int index = Integer.parseInt(number);
-                    items.deleteItem(index+1);
+                    items.deleteItem(index-1);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid index number entered");
                 } catch (NumberFormatException e) {
