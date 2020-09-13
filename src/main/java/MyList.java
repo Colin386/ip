@@ -154,6 +154,17 @@ public class MyList {
     }
 
     /**
+     * Retrieves the task at a particular index of the list
+     *
+     * @param index
+     * @return
+     */
+    public Task retrieveTask(int index) {
+
+        return things[index];
+    }
+
+    /**
      * Mark the task number as completed
      *
      * @param index The task number shown on the list to be marked as done
@@ -224,4 +235,13 @@ public class MyList {
 
     }
 
+    /**
+     * Function used if we need to directly write the item into the list
+     * @param item contains the task to be added to our list
+     */
+
+    public void addItem(Task item) {
+        this.things[this.size] = item;
+        this.size++;
+    }
 }
