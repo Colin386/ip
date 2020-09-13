@@ -58,7 +58,21 @@ public class Duke {
 
 
             //add the thing into the list
-            } else {
+            } else if (command.contains("delete")) {
+                try {
+                    String[] commandArgs = command.split(" ");
+                    String number = commandArgs[1];
+                    number.trim();
+                    int index = Integer.parseInt(number);
+                    items.deleteItem(index-1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid index number entered");
+                } catch (NumberFormatException e) {
+                    System.out.println("Number missing or invalid");
+                }
+
+            }
+            else {
 
                 items.addItem(command);
             }
