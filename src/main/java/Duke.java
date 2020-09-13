@@ -37,6 +37,8 @@ public class Duke {
         MyList items = new MyList();
         FileSaver f = new FileSaver();
 
+        f.loadData(items);
+        System.out.println("Files Loaded");
         while (true) {
 
             command = in.nextLine();

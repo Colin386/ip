@@ -207,4 +207,13 @@ public class MyList {
 
     }
 
+    /**
+     * Function used if we need to directly write the item into the list
+     * @param item contains the task to be added to our list
+     */
+
+    public void addItem(Task item) {
+        this.things[this.size] = item;
+        this.size++;
+    }
 }

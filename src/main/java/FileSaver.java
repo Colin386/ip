@@ -32,6 +32,11 @@ public class FileSaver {
 
     }
 
+    /**
+     * Saves the information stored for the session into a txt file
+     *
+     * @param destination Mylist data type containing the records of events done earlier
+     */
     public void saveData(MyList destination) {
 
         try {
@@ -63,6 +68,38 @@ public class FileSaver {
             System.out.println("Error! unable to record information to file");
         }
         System.out.println("Session saved!");
+    }
+
+    /**
+     * Loads the data into the current list for the user to continue modifying the list
+     *
+     * @param destination MyList data type to contain all recorded events in the computer's txt file
+     */
+    public void loadData(MyList destination) {
+        try {
+            if (Files.notExists(dukeInfoLocation)) {
+                System.out.println("Nothing to load data from");
+            }
+
+            List<String> fileInfo = new ArrayList<>();
+            fileInfo = Files.readAllLines(dukeInfoLocation, StandardCharsets.UTF_8);
+
+
+
+
+            for (int i = 0; i < fileInfo.size(); i++) {
+
+                Task activity = formatCommand(fileInfo.get(i));
+                destination.addItem(activity);
+
+
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading file to program");
+        }
+
+
+
     }
 
 
@@ -98,5 +135,56 @@ public class FileSaver {
             activityDate = ((Event) activity).getAtDate();
         }
         return type + " | " + activityStatus + " | " + activityName + " | " + activityDate;
+    }
+
+
+    private Task formatCommand(String info) {
+
+
+        String type;
+        String activityName;
+        boolean activityStatus;
+        String activityDate;
+
+        String[] infoBreakdown = info.split(" \\| ");
+
+
+        for (int i = 0; i < infoBreakdown.length; i++)
+        {
+
+            infoBreakdown[i] = infoBreakdown[i].trim();
+
+        }
+
+        type = infoBreakdown[0];
+        activityStatus = Boolean.parseBoolean(infoBreakdown[1]);
+        activityName = infoBreakdown[2];
+        activityDate = "";
+        if (!type.equals("T")) {
+            activityDate = infoBreakdown[3];
+        }
+
+        String creationCommand;
+        Task activity;
+        switch (type) {
+        case ("T"):
+
+            activity = new ToDo(activityName);
+            activity.setStatus(activityStatus);
+            break;
+        case ("D"):
+
+            activity = new Deadline(activityName, "/by" + activityDate);
+            activity.setStatus(activityStatus);
+            break;
+        default:
+
+            activity = new Event(activityName, "/at" + activityDate);
+            activity.setStatus(activityStatus);
+            break;
+        }
+
+         return activity;
+
     }
 }
