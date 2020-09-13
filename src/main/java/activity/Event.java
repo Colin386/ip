@@ -36,4 +36,13 @@ public class Event extends Task {
 
         return "[E]" + super.toString() + this.formatDate();
     }
+
+    /**
+     * Function returns the date information of the event
+     *
+     * @return String containing the at date
+     */
+    public String getAtDate () {
+        return this.atDate;
+    }
 }

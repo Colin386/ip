@@ -126,6 +126,17 @@ public class MyList {
     }
 
     /**
+     * Retrieves the task at a particular index of the list
+     *
+     * @param index
+     * @return
+     */
+    public Task retrieveTask(int index) {
+
+        return things[index];
+    }
+
+    /**
      * Mark the task number as completed
      *
      * @param index The task number shown on the list to be marked as done

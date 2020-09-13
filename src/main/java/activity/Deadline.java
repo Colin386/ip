@@ -36,4 +36,13 @@ public class Deadline extends Task{
 
         return "[D]" + super.toString() + this.formatDate();
     }
+
+    /**
+     * Function returns the date information of the event
+     *
+     * @return String containing the date
+     */
+    public String getByDate () {
+        return this.byDate;
+    }
 }

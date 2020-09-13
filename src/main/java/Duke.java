@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Duke {
 
+
     /**
      * Prints a welcome message on the screen
      *
@@ -34,6 +35,7 @@ public class Duke {
         Scanner in  = new Scanner(System.in);
         String command;
         MyList items = new MyList();
+        FileSaver f = new FileSaver();
 
         while (true) {
 
@@ -64,6 +66,11 @@ public class Duke {
             }
 
         }
+
+        f.saveData(items);
+        System.out.println("File saved successfully!");
+
+
 
     }
 
