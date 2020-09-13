@@ -161,7 +161,7 @@ public class MyList {
      */
     public Task retrieveTask(int index) {
 
-        return things[index];
+        return things.get(index);
     }
 
     /**
@@ -241,7 +241,6 @@ public class MyList {
      */
 
     public void addItem(Task item) {
-        this.things[this.size] = item;
-        this.size++;
+        this.things.add(item);
     }
 }
