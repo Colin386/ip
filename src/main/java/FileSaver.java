@@ -42,10 +42,10 @@ public class FileSaver {
         try {
 
             if (!Files.exists(dukeInfoFolder)) {
-                Files.createDirectory(dukeInfoFolder);
+                    Files.createDirectory(dukeInfoFolder);
             }
-            Files.deleteIfExists(dukeInfoLocation);
-            dukeInfoLocation = Files.createFile(dukeInfoLocation);
+            //Files.deleteIfExists(dukeInfoLocation);
+            //dukeInfoLocation = Files.createFile(dukeInfoLocation);
 
         } catch (IOException e) {
             System.out.println("File IO Error! file cannot be saved");
@@ -79,6 +79,7 @@ public class FileSaver {
         try {
             if (Files.notExists(dukeInfoLocation)) {
                 System.out.println("Nothing to load data from");
+                return;
             }
 
             List<String> fileInfo = new ArrayList<>();
@@ -94,6 +95,8 @@ public class FileSaver {
 
 
             }
+            System.out.println("Files Loaded\n");
+
         } catch (IOException e) {
             System.out.println("Error loading file to program");
         }

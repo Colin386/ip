@@ -38,7 +38,7 @@ public class Duke {
         FileSaver f = new FileSaver();
 
         f.loadData(items);
-        System.out.println("Files Loaded");
+
         while (true) {
 
             command = in.nextLine();
@@ -80,7 +80,7 @@ public class Duke {
 
                 items.addItem(command);
             }
-
+            f.saveData(items);
         }
 
         f.saveData(items);
