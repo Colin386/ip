@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,8 @@ public class FileSaver {
 
         } catch (IOException e) {
             System.out.println("Error loading file to program");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error loading certain files due to incorrect date format saved.");
         }
 
 
@@ -134,18 +137,18 @@ public class FileSaver {
             type = "D";
             activityName = activity.getName();
             activityStatus = Boolean.toString(activity.getStatus());
-            activityDate = ((Deadline) activity).getByDate();
+            activityDate = ((Deadline) activity).getFullDateString();
         } else {
             type = "E";
             activityName = activity.getName();
             activityStatus = Boolean.toString(activity.getStatus());
-            activityDate = ((Event) activity).getAtDate();
+            activityDate = ((Event) activity).getFullDateString();
         }
         return type + " | " + activityStatus + " | " + activityName + " | " + activityDate;
     }
 
 
-    private Task formatCommand(String info) {
+    private Task formatCommand(String info) throws DateTimeParseException {
 
 
         String type;
@@ -184,11 +187,15 @@ public class FileSaver {
             activity = new Deadline(activityName, "/by" + activityDate);
             activity.setStatus(activityStatus);
             break;
+
+
         default:
+
 
             activity = new Event(activityName, "/at" + activityDate);
             activity.setStatus(activityStatus);
             break;
+
         }
 
          return activity;
