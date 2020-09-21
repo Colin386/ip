@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -34,8 +33,12 @@ public class FileSaver {
 
     /**
      * Saves the information stored for the session into a txt file
+     * Function will attempt to create a file /data/duke.txt on the computer if file not present in the computer
+     * Command will not execute a save if it was unsuccessful in creating the file
      *
-     * @param destination Mylist data type containing the records of events done earlier
+     * Existing data located in /data/duke.txt is overwritten with new information each time this command is called
+     *
+     * @param destination Mylist data type containing the records of events done earlier to be saved to computer
      */
     public void saveData(MyList destination) {
 
@@ -44,8 +47,7 @@ public class FileSaver {
             if (!Files.exists(dukeInfoFolder)) {
                     Files.createDirectory(dukeInfoFolder);
             }
-            //Files.deleteIfExists(dukeInfoLocation);
-            //dukeInfoLocation = Files.createFile(dukeInfoLocation);
+
 
         } catch (IOException e) {
             System.out.println("File IO Error! file cannot be saved");
@@ -72,6 +74,8 @@ public class FileSaver {
 
     /**
      * Loads the data into the current list for the user to continue modifying the list
+     * Program will look for the existence of a file called /data/duke.txt
+     * If the file does not exist, the program will not load any data to the program.
      *
      * @param destination MyList data type to contain all recorded events in the computer's txt file
      */
