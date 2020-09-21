@@ -96,6 +96,9 @@ public class FileSaver {
             for (int i = 0; i < fileInfo.size(); i++) {
 
                 Task activity = formatCommand(fileInfo.get(i));
+                if (activity == null) { //occurs when date information not stored correctly on txt file
+                    continue;
+                }
                 destination.addItem(activity);
 
 
@@ -104,8 +107,6 @@ public class FileSaver {
 
         } catch (IOException e) {
             System.out.println("Error loading file to program");
-        } catch (DateTimeParseException e) {
-            System.out.println("Error loading certain files due to incorrect date format saved.");
         }
 
 
@@ -148,7 +149,7 @@ public class FileSaver {
     }
 
 
-    private Task formatCommand(String info) throws DateTimeParseException {
+    private Task formatCommand(String info) {
 
 
         String type;
@@ -176,29 +177,36 @@ public class FileSaver {
 
         String creationCommand;
         Task activity;
-        switch (type) {
-        case ("T"):
 
-            activity = new ToDo(activityName);
-            activity.setStatus(activityStatus);
-            break;
-        case ("D"):
+        try {
+            switch (type) {
+            case ("T"):
 
-            activity = new Deadline(activityName, "/by" + activityDate);
-            activity.setStatus(activityStatus);
-            break;
+                activity = new ToDo(activityName);
+                activity.setStatus(activityStatus);
+                break;
+            case ("D"):
+
+                activity = new Deadline(activityName, "/by" + activityDate);
+                activity.setStatus(activityStatus);
+                break;
 
 
-        default:
+            default:
 
 
-            activity = new Event(activityName, "/at" + activityDate);
-            activity.setStatus(activityStatus);
-            break;
+                activity = new Event(activityName, "/at" + activityDate);
+                activity.setStatus(activityStatus);
+                break;
 
+            }
+
+            return activity;
+        } catch (DateTimeParseException e) {
+            System.out.println("Error, some entries in you txt files have invalid dates or times, these entries are not recorded");
+            return null;
         }
 
-         return activity;
 
     }
 }
