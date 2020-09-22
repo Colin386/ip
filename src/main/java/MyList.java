@@ -29,10 +29,13 @@ public class MyList {
 
     }
 
+
+
     /**
-     * Function deletes the item at a particular index and shift everything one space to the left
+     * Function deletes the item at a particular index
      *
-     * @param index integer containing index number of item to be deleted
+     * @param index integer containing index number of the item to be deleted
+     * @throws IndexOutOfBoundsException thrown if index number provided is not an index in the current array list. Too small or too large.
      */
     public void deleteItem(int index) throws IndexOutOfBoundsException {
         int currentSize = this.things.size();
@@ -80,8 +83,10 @@ public class MyList {
     }
 
     /**
-     * Function prints out all the events in the list that lies on a user given date
-     * @param eventDate
+     * Prints out the activity list with all Task which lies on the user given date
+     *
+     * @param eventDate Date object which contains the date to be compared with all Tasks.
+     * @throws DateTimeParseException thrown if user did not key in date in the form yyyy-mm-dd
      */
      public void printList(LocalDate eventDate) throws DateTimeParseException {
 
@@ -121,18 +126,21 @@ public class MyList {
     /**
      * Retrieves the task at a particular index of the list
      *
-     * @param index
-     * @return
+     * @param index integer of the index number of the item to be provided from the array list
+     * @return Task item which contains the task that was stored at the index number provided.
      */
     public Task retrieveTask(int index) {
 
         return things.get(index);
     }
 
+
+
     /**
-     * Mark the task number as completed
+     * Mark the task as completed
      *
      * @param index The task number shown on the list to be marked as done
+     * @throws IndexOutOfBoundsException thrown when the index number is out of range, either too small or too large
      */
     public void completeTask(int index) throws IndexOutOfBoundsException{
 

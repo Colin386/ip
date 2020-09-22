@@ -23,9 +23,9 @@ public class FileSaver {
     private List<String> prevInfo;
 
 
-
-
-
+    /**
+     * FileSaver constructor, creates a reference to the home directory/data/duke.txt
+     */
     public FileSaver() {
         dukeInfoLocation = Paths.get(HOME, "data","duke.txt");
         dukeInfoFolder = Paths.get(HOME, "data");
@@ -117,7 +117,7 @@ public class FileSaver {
 
 
     /**
-     * returns the activity into a formatted string to be written to text file
+     * Converts the Task activity into a formatted string to be written to text file
      *
      * @param activity Task to be formatted into a writeable form
      * @return String containing the activity information separated by pipes
@@ -149,6 +149,12 @@ public class FileSaver {
     }
 
 
+    /**
+     * Function takes in a string and creates an object to be added to the activity list
+     *
+     * @param info String from txt file that stores all previous session activity information to be processed into a Task
+     * @return Task that match the information stored in info String
+     */
     private Task formatCommand(String info) {
 
 
