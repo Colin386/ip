@@ -28,9 +28,9 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 The following list some of the functions that you can do with Duke
 1. Keep track of deadlines, events and items to do.
-2. Find out what is happening on a particular date
-3. List down all events that you have to do
-4. Find specific events using a certain keyword
+1. Find out what is happening on a particular date
+1. List down all events that you have to do
+1. Find specific events using a certain keyword
 
 ##Conventions Used
 
