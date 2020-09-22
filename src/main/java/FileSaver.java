@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +96,9 @@ public class FileSaver {
             for (int i = 0; i < fileInfo.size(); i++) {
 
                 Task activity = formatCommand(fileInfo.get(i));
+                if (activity == null) { //occurs when date information not stored correctly on txt file
+                    continue;
+                }
                 destination.addItem(activity);
 
 
@@ -134,12 +138,12 @@ public class FileSaver {
             type = "D";
             activityName = activity.getName();
             activityStatus = Boolean.toString(activity.getStatus());
-            activityDate = ((Deadline) activity).getByDate();
+            activityDate = ((Deadline) activity).getFullDateString();
         } else {
             type = "E";
             activityName = activity.getName();
             activityStatus = Boolean.toString(activity.getStatus());
-            activityDate = ((Event) activity).getAtDate();
+            activityDate = ((Event) activity).getFullDateString();
         }
         return type + " | " + activityStatus + " | " + activityName + " | " + activityDate;
     }
@@ -173,25 +177,36 @@ public class FileSaver {
 
         String creationCommand;
         Task activity;
-        switch (type) {
-        case ("T"):
 
-            activity = new ToDo(activityName);
-            activity.setStatus(activityStatus);
-            break;
-        case ("D"):
+        try {
+            switch (type) {
+            case ("T"):
 
-            activity = new Deadline(activityName, "/by" + activityDate);
-            activity.setStatus(activityStatus);
-            break;
-        default:
+                activity = new ToDo(activityName);
+                activity.setStatus(activityStatus);
+                break;
+            case ("D"):
 
-            activity = new Event(activityName, "/at" + activityDate);
-            activity.setStatus(activityStatus);
-            break;
+                activity = new Deadline(activityName, "/by" + activityDate);
+                activity.setStatus(activityStatus);
+                break;
+
+
+            default:
+
+
+                activity = new Event(activityName, "/at" + activityDate);
+                activity.setStatus(activityStatus);
+                break;
+
+            }
+
+            return activity;
+        } catch (DateTimeParseException e) {
+            System.out.println("Error, some entries in you txt files have invalid dates or times, these entries are not recorded");
+            return null;
         }
 
-         return activity;
 
     }
 }

@@ -6,24 +6,31 @@ import main.java.activity.Task;
 import main.java.activity.ToDo;
 import main.java.dukeExceptions.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Parser {
 
     private MyList items;
 
-    public Parser(MyList itemStorage)
-    {
+    public Parser(MyList itemStorage) {
         this.items = itemStorage;
     }
 
-
+    /**
+     * Function accepts in the user input and determine which function to call and operate
+     *
+     * @param command string containing user input
+     * @param items   MyList item where activity entry storage, deletion or listing is performed
+     * @return
+     */
 
     public boolean processUserInput(String command, MyList items) {
         if (command.equals("bye")) {
             return true;
-        } else if (command.equals("list")) {
-            items.printList();
+        } else if (command.contains("list")) {
+            this.processList(command, items);
 
         } else if (command.contains("done")) {
             String[] info = command.split(" ");
@@ -38,18 +45,17 @@ public class Parser {
             }
 
 
-
         } else if (command.contains("delete")) {
             ProcessDelete(command);
 
         } else if (command.contains("find")) {
             processFind(command, items);
-        }
-        else {
+        } else {
             processAdd(command);
         }
         return false;
     }
+
 
     private void processFind(String command, MyList items) {
         String[] commandArgs = command.split(" ");
@@ -58,18 +64,36 @@ public class Parser {
             return;
         }
 
-        String[] findQueryWords = Arrays.copyOfRange(commandArgs,1, commandArgs.length);
-        String findQuery = String.join( " ", findQueryWords);
+        String[] findQueryWords = Arrays.copyOfRange(commandArgs, 1, commandArgs.length);
+        String findQuery = String.join(" ", findQueryWords);
 
         int listSize = items.getSize();
         System.out.printf("\nHere are the list of activities that contain the word \"%s\":l\n", findQuery);
-        for(int i = 0; i < listSize; i++) { //goes through each item on the list and print out the ones that match search
+        for (int i = 0; i < listSize; i++) { //goes through each item on the list and print out the ones that match search
 
             Task currentActivity = items.retrieveTask(i);
-            if(currentActivity.getName().contains(findQuery)) {
-                System.out.printf("\n%d.", i+1);
+            if (currentActivity.getName().contains(findQuery)) {
+                System.out.printf("\n%d.", i + 1);
                 System.out.printf("%s", currentActivity.toString());
             }
+        }
+    }
+
+
+
+
+    private void processList(String command, MyList items) {
+        String[] commandArgs = command.split(" ");
+        try {
+            if (commandArgs.length == 1) {
+                items.printList(); //no deadline given, assume standard print list
+            } else {
+                String dateString = commandArgs[1];
+                LocalDate dateRequest = LocalDate.parse(dateString);
+                items.printList(dateRequest);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("I'm sorry, an invalid date has been entered, please enter a valid date yyyy-mm-dd");
         }
 
 
@@ -85,6 +109,8 @@ public class Parser {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             System.out.printf("\nNothing was entered, please enter a command\n");
+        } catch (DateTimeParseException e) {
+            System.out.println("\nIncorrect Date entered, enter in yyyy-mm-dd hh:mm format");
         }
 
     }
@@ -93,7 +119,7 @@ public class Parser {
         try {
             String[] commandArgs = command.split(" ");
             String number = commandArgs[1];
-            number.trim(); //removes trailing spaces to convert into proper integer later
+            number = number.trim(); //removes trailing spaces to convert into proper integer later
             int index = Integer.parseInt(number);
             items.deleteItem(index-1);
         } catch (IndexOutOfBoundsException e) { //error is thrown if the user gave a number outside the array size.
@@ -108,7 +134,7 @@ public class Parser {
      * @param itemInfo String containing command word, user event and dates
      * @return Task object according to parameters in itemInfo
      */
-    public Task produceTask(String itemInfo) throws UnrecognisedCommandException, NotEnoughInfoException, IndexOutOfBoundsException {
+    public Task produceTask(String itemInfo) throws UnrecognisedCommandException, NotEnoughInfoException, IndexOutOfBoundsException, DateTimeParseException {
 
         String[] wordsEntered = itemInfo.split(" ");
         String itemType = wordsEntered[0];
@@ -131,16 +157,21 @@ public class Parser {
                 String deadlineInfo = this.extractDate(commandInformation, "/by", "deadline");
                 String deadlineActivityInfo = this.extractActivity(commandInformation, "/by", "deadline");
                 return new Deadline(deadlineActivityInfo, deadlineInfo);
-            } catch (NotEnoughInfoException e) {
+
+            } catch (NotEnoughInfoException | DateTimeParseException e) {
                 throw e;
             }
 
 
         case ("event"):
+            try {
+                String dateInfo = this.extractDate(commandInformation, "/at", "event");
+                String eventInfo = this.extractActivity(commandInformation, "/at", "event");
+                return new Event(eventInfo, dateInfo);
+            } catch (NotEnoughInfoException | DateTimeParseException e) {
+                throw e;
+            }
 
-            String dateInfo = this.extractDate(commandInformation, "/at", "event");
-            String eventInfo = this.extractActivity(commandInformation, "/at", "event");
-            return new Event(eventInfo, dateInfo);
 
         default:
 
