@@ -14,8 +14,7 @@ public class Parser {
 
     private MyList items;
 
-    public Parser(MyList itemStorage)
-    {
+    public Parser(MyList itemStorage) {
         this.items = itemStorage;
     }
 
@@ -23,7 +22,7 @@ public class Parser {
      * Function accepts in the user input and determine which function to call and operate
      *
      * @param command string containing user input
-     * @param items MyList item where activity entry storage, deletion or listing is performed
+     * @param items   MyList item where activity entry storage, deletion or listing is performed
      * @return
      */
 
@@ -46,16 +45,42 @@ public class Parser {
             }
 
 
-
         } else if (command.contains("delete")) {
             ProcessDelete(command);
 
-        }
-        else {
+        } else if (command.contains("find")) {
+            processFind(command, items);
+        } else {
             processAdd(command);
         }
         return false;
     }
+
+
+    private void processFind(String command, MyList items) {
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 1) {
+            System.out.println("\nNothing to find! Please enter \" Find <words>\"");
+            return;
+        }
+
+        String[] findQueryWords = Arrays.copyOfRange(commandArgs, 1, commandArgs.length);
+        String findQuery = String.join(" ", findQueryWords);
+
+        int listSize = items.getSize();
+        System.out.printf("\nHere are the list of activities that contain the word \"%s\":l\n", findQuery);
+        for (int i = 0; i < listSize; i++) { //goes through each item on the list and print out the ones that match search
+
+            Task currentActivity = items.retrieveTask(i);
+            if (currentActivity.getName().contains(findQuery)) {
+                System.out.printf("\n%d.", i + 1);
+                System.out.printf("%s", currentActivity.toString());
+            }
+        }
+    }
+
+
+
 
     private void processList(String command, MyList items) {
         String[] commandArgs = command.split(" ");
@@ -70,6 +95,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             System.out.println("I'm sorry, an invalid date has been entered, please enter a valid date yyyy-mm-dd");
         }
+
 
     }
 
