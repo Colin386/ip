@@ -40,7 +40,7 @@ public class Event extends Task implements DateStorage {
 
     @Override
     public LocalDateTime retrieveDate() {
-        return null;
+        return this.dueDateTime;
     }
 
     /**

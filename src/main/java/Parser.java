@@ -6,6 +6,7 @@ import main.java.activity.Task;
 import main.java.activity.ToDo;
 import main.java.dukeExceptions.*;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
@@ -18,13 +19,19 @@ public class Parser {
         this.items = itemStorage;
     }
 
-
+    /**
+     * Function accepts in the user input and determine which function to call and operate
+     *
+     * @param command string containing user input
+     * @param items MyList item where activity entry storage, deletion or listing is performed
+     * @return
+     */
 
     public boolean processUserInput(String command, MyList items) {
         if (command.equals("bye")) {
             return true;
-        } else if (command.equals("list")) {
-            items.printList();
+        } else if (command.contains("list")) {
+            this.processList(command, items);
 
         } else if (command.contains("done")) {
             String[] info = command.split(" ");
@@ -48,6 +55,22 @@ public class Parser {
             processAdd(command);
         }
         return false;
+    }
+
+    private void processList(String command, MyList items) {
+        String[] commandArgs = command.split(" ");
+        try {
+            if (commandArgs.length == 1) {
+                items.printList(); //no deadline given, assume standard print list
+            } else {
+                String dateString = commandArgs[1];
+                LocalDate dateRequest = LocalDate.parse(dateString);
+                items.printList(dateRequest);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("I'm sorry, an invalid date has been entered, please enter a valid date yyyy-mm-dd");
+        }
+
     }
 
     private void processAdd(String command) {

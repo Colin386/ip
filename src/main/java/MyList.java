@@ -1,9 +1,15 @@
 package main.java;
 
 
+import main.java.activity.Deadline;
+import main.java.activity.Event;
 import main.java.activity.Task;
+import main.java.activity.ToDo;
 import main.java.dukeExceptions.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class MyList {
@@ -72,6 +78,45 @@ public class MyList {
         }
         System.out.println("");
     }
+
+    /**
+     * Function prints out all the events in the list that lies on a user given date
+     * @param eventDate
+     */
+     public void printList(LocalDate eventDate) throws DateTimeParseException {
+
+
+        String dateString = eventDate.toString();
+        System.out.printf("\nHere are all the activities that are conducted on this date: %s\n", dateString);
+
+        for (int i = 0; i < this.getSize(); i++) {
+            Task item = this.things.get(i);
+            LocalDateTime itemDateTime;
+            if (item instanceof ToDo) {
+
+                continue; //ignores ToDo as they do not have any deadlines
+
+            } else if ((item instanceof Deadline)) {
+
+                itemDateTime = ((Deadline) item).retrieveDate();
+
+            } else {
+
+                itemDateTime = ((Event) item).retrieveDate();
+
+            }
+
+            if (eventDate.equals(itemDateTime.toLocalDate())){
+                System.out.printf("\n%d.", i+1);
+                System.out.printf("%s", item.toString());//print only when date matches
+            }
+
+
+
+        }
+
+
+     }
 
     /**
      * Retrieves the task at a particular index of the list
