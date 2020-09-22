@@ -24,6 +24,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+   
 ##What can you do with Duke?
 
 The following list some of the functions that you can do with Duke
