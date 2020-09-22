@@ -9,6 +9,9 @@ public class Duke {
     private Parser parser;
 
 
+    /**
+     * Constructor for the Duke item
+     */
     public Duke() {
         ui = new UserInterface();
         items = new MyList();
@@ -17,6 +20,9 @@ public class Duke {
 
     }
 
+    /**
+     * Main run function, prints welcome message, loops until user enters "bye", then prints bye message
+     */
     public void run() {
         ui.welcomeMessage();
 
@@ -40,8 +46,7 @@ public class Duke {
         ui.goodbyeMessage();
     }
     /**
-     * Main Functions, welcomes users, process user commands
-     * Prints goodbye message and terminates.
+     * Main function, creates a Duke class item and starts to run
      * @param args
      */
     public static void main(String[] args) {

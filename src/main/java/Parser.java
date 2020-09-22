@@ -14,6 +14,11 @@ public class Parser {
 
     private MyList items;
 
+    /**
+     * Constructor for the Parser object that interpret all user commands
+     *
+     * @param itemStorage MyList object to be used for containing all user recorded Activities
+     */
     public Parser(MyList itemStorage) {
         this.items = itemStorage;
     }
@@ -23,7 +28,7 @@ public class Parser {
      *
      * @param command string containing user input
      * @param items   MyList item where activity entry storage, deletion or listing is performed
-     * @return
+     * @return boolean, true if bye is entered to indicate program is complete, false otherwise
      */
 
     public boolean processUserInput(String command, MyList items) {
@@ -57,6 +62,12 @@ public class Parser {
     }
 
 
+    /**
+     * Internal command used to process any find commands entered by the user
+     *
+     * @param command String containing the user input
+     * @param items MyList data type to be searched through to find the required task of the user
+     */
     private void processFind(String command, MyList items) {
         String[] commandArgs = command.split(" ");
         if (commandArgs.length == 1) {
@@ -80,8 +91,12 @@ public class Parser {
     }
 
 
-
-
+    /**
+     * Internal command used for processing any user listing commands
+     *
+     * @param command String containing the user input
+     * @param items MyList data type to be looked through for printing in the user specified format
+     */
     private void processList(String command, MyList items) {
         String[] commandArgs = command.split(" ");
         try {
@@ -99,6 +114,11 @@ public class Parser {
 
     }
 
+    /**
+     * Internal function for processing the add Task command by the user, used to call the appropriate function
+     *
+     * @param command contains the user command
+     */
     private void processAdd(String command) {
         try {
             Task newTask = produceTask(command);
@@ -115,6 +135,11 @@ public class Parser {
 
     }
 
+    /**
+     * Internal command used to process delete commands entered by the user
+     *
+     * @param command String containing user input indicating which object to be deleted from the MyList
+     */
     private void ProcessDelete(String command) {
         try {
             String[] commandArgs = command.split(" ");
@@ -129,10 +154,18 @@ public class Parser {
         }
     }
 
+
+
     /**
+     * Command used to produce the required Task object with the information provided by the user
      *
-     * @param itemInfo String containing command word, user event and dates
-     * @return Task object according to parameters in itemInfo
+     * @param itemInfo String with the user entered information about the event
+     * @return
+     *
+     * @throws UnrecognisedCommandException thrown when user has given a Task type that does not exist in the program
+     * @throws NotEnoughInfoException thrown if user did not provide the program with enough information to produce the Task required
+     * @throws IndexOutOfBoundsException thrown if user did not give any information for the program to work produce the required Task
+     * @throws DateTimeParseException thrown if invalid date information not in yyyy-mm--dd form is entered by user
      */
     public Task produceTask(String itemInfo) throws UnrecognisedCommandException, NotEnoughInfoException, IndexOutOfBoundsException, DateTimeParseException {
 
@@ -181,6 +214,8 @@ public class Parser {
 
 
     }
+
+
     /**
      * Extracts out the date information that is located after a certain keyword
      *
@@ -188,6 +223,9 @@ public class Parser {
      * @param keyword String containing the keyword that comes immediately before the date. E.g. /by
      * @param caller String of the name of the activity type that called it
      * @return String containing information on the Date found after the keyword
+     *
+     * @throws MissingKeywordException thrown if the / keywords is not present in the user input
+     * @throws MissingDateException thrown if there is no date information provided after the / keyword
      */
     private String extractDate(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingDateException {
         int slashIndex = commandInfo.indexOf(keyword);
@@ -206,13 +244,18 @@ public class Parser {
         return dateInfo;
     }
 
+
+
     /**
      * Extracts out the Activity information that is located before a certain keyword
      *
      * @param commandInfo String that contains the user input
      * @param keyword String containing a keyword that comes immediately before the date e.g. /by
-     * @param caller String of the name of the activity type that called it
-     * @return String containing the activity information
+     * @param caller String of the name of the activity type that called it e.g. deadline
+     * @return String containing the activity information removed from the user input
+     *
+     * @throws MissingKeywordException thrown if there is no / keyword given by the user
+     * @throws MissingActivityException thrown if there is nothing located before the keyword
      */
     private String extractActivity(String commandInfo, String keyword, String caller) throws MissingKeywordException, MissingActivityException {
         int slashIndex = commandInfo.indexOf(keyword);
