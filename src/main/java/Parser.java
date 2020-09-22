@@ -42,11 +42,37 @@ public class Parser {
         } else if (command.contains("delete")) {
             ProcessDelete(command);
 
+        } else if (command.contains("find")) {
+            processFind(command, items);
         }
         else {
             processAdd(command);
         }
         return false;
+    }
+
+    private void processFind(String command, MyList items) {
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 1) {
+            System.out.println("\nNothing to find! Please enter \" Find <words>\"");
+            return;
+        }
+
+        String[] findQueryWords = Arrays.copyOfRange(commandArgs,1, commandArgs.length);
+        String findQuery = String.join( " ", findQueryWords);
+
+        int listSize = items.getSize();
+        System.out.printf("\nHere are the list of activities that contain the word \"%s\":l\n", findQuery);
+        for(int i = 0; i < listSize; i++) { //goes through each item on the list and print out the ones that match search
+
+            Task currentActivity = items.retrieveTask(i);
+            if(currentActivity.getName().contains(findQuery)) {
+                System.out.printf("\n%d.", i+1);
+                System.out.printf("%s", currentActivity.toString());
+            }
+        }
+
+
     }
 
     private void processAdd(String command) {
