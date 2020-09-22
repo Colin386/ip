@@ -1,9 +1,13 @@
 package main.java.activity;
 
-public class Event extends Task {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+public class Event extends Task implements DateStorage {
 
     /** String containing date that the event is held*/
     private String atDate;
+    private LocalDateTime dueDateTime;
 
     /**
      * Constructor that makes the event object with the name and date information
@@ -11,10 +15,18 @@ public class Event extends Task {
      * @param thing String of name of event
      * @param date String containing the date event is held
      */
-    public Event(String thing, String date){
+    public Event(String thing, String date) throws DateTimeParseException{
         super(thing);
         final int AT_LENGTH = 3;
         atDate = date.substring(AT_LENGTH);
+
+        dueDateTime = this.processDate(atDate);
+    }
+
+    @Override
+    public String getFullDateString() {
+        return this.atDate;
+
     }
 
     /**
@@ -24,6 +36,11 @@ public class Event extends Task {
      */
     public String formatDate() {
         return " (at: " + this.atDate + ")";
+    }
+
+    @Override
+    public LocalDateTime retrieveDate() {
+        return this.dueDateTime;
     }
 
     /**
@@ -37,12 +54,26 @@ public class Event extends Task {
         return "[E]" + super.toString() + this.formatDate();
     }
 
-    /**
-     * Function returns the date information of the event
-     *
-     * @return String containing the at date
-     */
-    public String getAtDate () {
-        return this.atDate;
+    private LocalDateTime processDate  (String userDate) throws DateTimeParseException {
+        String[] dateTimeInfo = userDate.split(" ");
+
+        String dateInfo = dateTimeInfo[0];
+        String timeInfo;
+        LocalDateTime newDate;
+
+        if (dateTimeInfo.length <= 1) { //no time given by user, assume time to be midnight
+            timeInfo = "00:00:00";
+            this.atDate = this.atDate + " " + timeInfo;
+        }
+        else {
+            timeInfo = dateTimeInfo[1];
+        }
+
+        newDate = LocalDateTime.parse(dateInfo + "T" + timeInfo);
+        return newDate;
+
     }
+
+
+
 }
