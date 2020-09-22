@@ -40,12 +40,24 @@ public class Deadline extends Task implements DateStorage{
     }
 
 
+    /**
+     * Function returns the date and time in a Datetime object
+     *
+     * @return LocalDateTime object containing the date and time of the activity
+     */
     @Override
     public LocalDateTime retrieveDate() {
         return this.dueDateTime;
     }
 
 
+    /**
+     * Function reads the date and time entered by the user and tries to form a date time object to be stored with the activity
+     *
+     * @param userDate String containing the user input date and time
+     * @return LocalDateTime object according to the user's date and time written
+     * @throws DateTimeParseException when user does not input the date time in the form yyyy-mm-dd hh:mm
+     */
     private LocalDateTime processDate  (String userDate) throws DateTimeParseException {
         String[] dateTimeInfo = userDate.split(" ");
 
@@ -77,7 +89,7 @@ public class Deadline extends Task implements DateStorage{
     }
 
     /**
-     * Function returns the date information of the event
+     * Function returns the date information of the deadline in a formatted string
      *
      * @return String containing the date
      */

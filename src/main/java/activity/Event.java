@@ -15,6 +15,14 @@ public class Event extends Task implements DateStorage {
      * @param thing String of name of event
      * @param date String containing the date event is held
      */
+
+    /**
+     * Constructor that makes the event object with the name and date information
+     *
+     * @param thing String of name of event
+     * @param date String containing the date of the event entered by user
+     * @throws DateTimeParseException occurs if user did not key in a date in the form of yyyy-mm-dd
+     */
     public Event(String thing, String date) throws DateTimeParseException{
         super(thing);
         final int AT_LENGTH = 3;
@@ -23,6 +31,11 @@ public class Event extends Task implements DateStorage {
         dueDateTime = this.processDate(atDate);
     }
 
+    /**
+     * Function returns the date information of the event in a formatted string
+     *
+     * @return String containing the date
+     */
     @Override
     public String getFullDateString() {
         return this.atDate;
@@ -38,6 +51,11 @@ public class Event extends Task implements DateStorage {
         return " (at: " + this.atDate + ")";
     }
 
+    /**
+     * Function returns the date and time in a Datetime object
+     *
+     * @return LocalDateTime object containing the date and time of the activity
+     */
     @Override
     public LocalDateTime retrieveDate() {
         return this.dueDateTime;
@@ -54,6 +72,13 @@ public class Event extends Task implements DateStorage {
         return "[E]" + super.toString() + this.formatDate();
     }
 
+    /**
+     * Function reads the date and time entered by the user and tries to form a date time object to be stored with the activity
+     *
+     * @param userDate String containing the user input date and time
+     * @return LocalDateTime object according to the user's date and time written
+     * @throws DateTimeParseException when user does not input the date time in the form yyyy-mm-dd hh:mm
+     */
     private LocalDateTime processDate  (String userDate) throws DateTimeParseException {
         String[] dateTimeInfo = userDate.split(" ");
 
