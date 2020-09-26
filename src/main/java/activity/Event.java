@@ -8,6 +8,7 @@ public class Event extends Task implements DateStorage {
     /** String containing date that the event is held*/
     private String atDate;
     private LocalDateTime dueDateTime;
+    private DateParser d;
 
     /**
      * Constructor that makes the event object with the name and date information
@@ -25,10 +26,12 @@ public class Event extends Task implements DateStorage {
      */
     public Event(String thing, String date) throws DateTimeParseException{
         super(thing);
+        d = new DateParser();
         final int AT_LENGTH = 3;
         atDate = date.substring(AT_LENGTH);
 
         dueDateTime = this.processDate(atDate);
+
     }
 
     /**
@@ -48,7 +51,7 @@ public class Event extends Task implements DateStorage {
      * @return String containing the original date written with "at" added
      */
     public String formatDate() {
-        return " (at: " + this.atDate + ")";
+        return " (at: " + this.d.convertToLongDateTime(this.dueDateTime) + ")";
     }
 
     /**
@@ -95,9 +98,11 @@ public class Event extends Task implements DateStorage {
         }
 
         newDate = LocalDateTime.parse(dateInfo + "T" + timeInfo);
+
         return newDate;
 
     }
+
 
 
 

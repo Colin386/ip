@@ -10,6 +10,7 @@ public class Deadline extends Task implements DateStorage{
      /**Deadline of the task*/
     private String byDate;
     private LocalDateTime dueDateTime;
+    private DateParser d;
 
 
     /**
@@ -20,6 +21,7 @@ public class Deadline extends Task implements DateStorage{
      */
     public Deadline(String thing, String date) throws DateTimeParseException {
         super(thing);
+        d = new DateParser();
         final int BY_LENGTH = 3;
         this.byDate = date.substring(BY_LENGTH);
 
@@ -36,7 +38,7 @@ public class Deadline extends Task implements DateStorage{
      * no further formatting done
      */
     public String formatDate() {
-        return " (by: " + this.byDate + ")";
+        return " (by: " + d.convertToLongDateTime(this.dueDateTime) + ")";
     }
 
 
@@ -45,10 +47,13 @@ public class Deadline extends Task implements DateStorage{
      *
      * @return LocalDateTime object containing the date and time of the activity
      */
-    @Override
+
     public LocalDateTime retrieveDate() {
         return this.dueDateTime;
     }
+
+
+
 
 
     /**
@@ -74,6 +79,7 @@ public class Deadline extends Task implements DateStorage{
         }
 
         newDate = LocalDateTime.parse(dateInfo + "T" + timeInfo);
+
         return newDate;
 
     }
@@ -96,4 +102,6 @@ public class Deadline extends Task implements DateStorage{
     public String getFullDateString() {
         return this.byDate;
     }
+
+
 }
