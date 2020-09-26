@@ -85,18 +85,27 @@ public class DateParser {
         String minuteString;
         String secondString;
 
-        if (hour <= 11) {
+        if (hour == 0) { //midnight
+            hourString = Integer.toString(12);
             timePostFix = "a.m";
-            hourString = Integer.toString(hour);
+
+        } else if (hour == 12) { //noon
+            hourString = Integer.toString(12);
+            timePostFix = "p.m";
+
+        } else if (hour <= 11) {
+                timePostFix = "a.m";
+                hourString = Integer.toString(hour);
 
         } else {
-            timePostFix = "p.m";
-            hourString = Integer.toString(24 - hour);
+                timePostFix = "p.m";
+                hourString = Integer.toString(hour-12);
         }
+
         minuteString = Integer.toString(min);
         secondString = Integer.toString(sec);
 
-        if ((hour < 22 && hour > 12) || (hour < 10)) {
+        if ((hour < 22 && hour > 12) || (hour < 10 && hour > 0)) {
             hourString = "0" + hourString;
         }
         if (min < 10) {

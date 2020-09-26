@@ -164,17 +164,17 @@ Index No. | Event Type | Status | Name of Task | date
 ```
 Here are the tasks in your list:
 1.[T][✗] Homework
-2.[D][✓] Cook Dinner (by: 2010-03-01 12:30)
-3.[E][✗] Hari Raya Puasa (at: 2021-05-12 00:00)
-4.[E][✗] Party (at: 2010-03-01 14:15)
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+3.[E][✗] Hari Raya Puasa (at: 12 May 2021 12:00:00 a.m)
+4.[E][✗] Party (at: 01 Mar 2010 02:15:00 p.m)
 ```
 
 `list 2010-03-01` - will list out all the events on the screen that falls on the 01 March 2010 in the following format
 ```
 Here are all the activities that are conducted on this date: 2010-03-01
 
-2.[D][✓] Cook Dinner (by: 2010-03-01 12:30)
-4.[E][✗] Party (at: 2010-03-01 14:15)
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+4.[E][✗] Party (at: 01 Mar 2010 02:15:00 p.m)
 ```
 
 ### Todo
