@@ -1,9 +1,21 @@
-todo read book
-deadline return book /by June 6th
-event project meeting /at Aug 6th 2-4pm
-todo join sports club
-todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
+todo read book
+deadline make book
+deadline /by 2020-12-11
+deadline return library book /by 2020-03-03 03:12
+deadline return library book /by tomorrow 03:12
+event make soup
+event /at 2020-01-10
+event Chinese New Year /by 2012-12-12
+event Chinese New Year /at 2021-02-12
+find Chinese
+list 1232-12-12
+list 2021-05-12
+list
+done 5
+list
+delete 6
+delete 5
+delete 4
+list
 bye

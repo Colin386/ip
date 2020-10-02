@@ -7,39 +7,91 @@ Hello from
 
 Hello! I'm Duke
 What can I do for you?
+Files Loaded
 
-Got it. I've added this task:
-  [T][✗] read book
-Now you have 1 tasks in the list.
-
-Got it. I've added this task:
-  [D][✗] return book (by: June 6th)
-Now you have 2 tasks in the list.
-
-Got it. I've added this task:
-  [E][✗] project meeting (at: Aug 6th 2-4pm)
-Now you have 3 tasks in the list.
-
-Got it. I've added this task:
-  [T][✗] join sports club
-Now you have 4 tasks in the list.
-
-Got it. I've added this task:
-  [T][✗] borrow book
-Now you have 5 tasks in the list.
 
 Here are the tasks in your list:
-1.[T][✗] read book
-2.[D][✗] return book (by: June 6th)
-3.[E][✗] project meeting (at: Aug 6th 2-4pm)
-4.[T][✗] join sports club
-5.[T][✗] borrow book
+1.[T][✗] Homework
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+3.[E][✓] Hari Raya (at: 12 May 2021 12:00:00 a.m)
+Session saved!
+Session saved!
+Command deadline requires more information
+Missing keyword: /by
+Session saved!
+Command deadline requires more informationRequires activity
+Session saved!
+Session saved!
 
-Got it. I've added this task:
-  [D][✗] return book (by: Sunday)
-Now you have 6 tasks in the list.
+Incorrect Date entered, enter in yyyy-mm-dd hh:mm format
+Session saved!
+Command event requires more information
+Missing keyword: /at
+Session saved!
+Command event requires more informationRequires activity
+Session saved!
+Command event requires more information
+Missing keyword: /at
+Session saved!
+Session saved!
 
-Got it. I've added this task:
-  [E][✗] project meeting (at: Mon 2-4pm)
-Now you have 7 tasks in the list.
+Here are the list of activities that contain the word "Chinese":
+
+6.[E][✗] Chinese New Year (at: 12 Feb 2021 12:00:00 a.m)
+Session saved!
+
+Here are all the activities that are conducted on this date: 1232-12-12
+
+Session saved!
+
+Here are all the activities that are conducted on this date: 2021-05-12
+
+3.[E][✓] Hari Raya (at: 12 May 2021 12:00:00 a.m)
+Session saved!
+
+Here are the tasks in your list:
+1.[T][✗] Homework
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+3.[E][✓] Hari Raya (at: 12 May 2021 12:00:00 a.m)
+4.[T][✗] read book
+5.[D][✗] return library book (by: 03 Mar 2020 03:12:00 a.m)
+6.[E][✗] Chinese New Year (at: 12 Feb 2021 12:00:00 a.m)
+Session saved!
+
+Nice! I've marked this task as done:
+[✓] return library book
+Session saved!
+
+Here are the tasks in your list:
+1.[T][✗] Homework
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+3.[E][✓] Hari Raya (at: 12 May 2021 12:00:00 a.m)
+4.[T][✗] read book
+5.[D][✓] return library book (by: 03 Mar 2020 03:12:00 a.m)
+6.[E][✗] Chinese New Year (at: 12 Feb 2021 12:00:00 a.m)
+Session saved!
+
+Noted, I've removed this task:
+  [E][✗] Chinese New Year (at: 12 Feb 2021 12:00:00 a.m)
+Now you have 5 tasks in the list
+Session saved!
+
+Noted, I've removed this task:
+  [D][✓] return library book (by: 03 Mar 2020 03:12:00 a.m)
+Now you have 4 tasks in the list
+Session saved!
+
+Noted, I've removed this task:
+  [T][✗] read book
+Now you have 3 tasks in the list
+Session saved!
+
+Here are the tasks in your list:
+1.[T][✗] Homework
+2.[D][✗] Cook Dinner (by: 01 Mar 2010 12:30:00 p.m)
+3.[E][✓] Hari Raya (at: 12 May 2021 12:00:00 a.m)
+Session saved!
+Session saved!
+Session saved!
+File saved successfully!
 Bye. Hope to see you again soon!
