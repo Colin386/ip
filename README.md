@@ -33,6 +33,32 @@ The following list some of the functions that you can do with Duke
 1. List down all events that you have to do
 1. Find specific events using a certain keyword
 
+## Installation Instructions
+Prerequisites: A computer running Windows, Mac OS X or Linux
+
+### Windows
+1. Download and copy the iPtest.jar file into an empty folder. We will assume that the folder is called "C:\Duke"
+1. open the command prompt by entering cmd into the search bar
+1. type `chcp 65001` into the command prompt and press enter
+1. navigate to the folder `C:\Duke` in the command prompt
+1. type `java -Dfile.encoding=UTF-8 -jar iPtest.jar` into the command prompt and press enter.
+1. The welcome message for the program should appear. 
+
+### Macintosh
+1. Download and copy the iPtest.jar file into an empty folder.
+1. open the terminal by clicking on `Launchpad->Utilities->Terminal`
+1. navigate to the folder you have stored the jar file in the command prompt
+1. type `java -jar iPtest.jar` into the terminal and press enter.
+1. The welcome message for the program should appear.
+
+### Linux
+1. Download and copy the iPtest.jar file into an empty folder. 
+1. open the terminal in the linux distribution.
+1. navigate to the folder you have stored the jar file in the command prompt
+1. type `java -jar iPtest.jar` into the linux terminal and press enter.
+1. The welcome message for the program should appear.
+
+
 ## Conventions Used
 
 The following table shows the list of conventions used when describing each function operation

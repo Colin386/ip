@@ -3,6 +3,7 @@ import main.java.activity.Deadline;
 import main.java.activity.Event;
 import main.java.activity.Task;
 import main.java.activity.ToDo;
+import main.java.dukeExceptions.FileCorruptionException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -177,7 +178,7 @@ public class FileSaver {
         activityStatus = Boolean.parseBoolean(infoBreakdown[1]);
         activityName = infoBreakdown[2];
         activityDate = "";
-        if (!type.equals("T")) {
+        if (type.equals("D") || type.equals("E")) {
             activityDate = infoBreakdown[3];
         }
 
@@ -197,19 +198,23 @@ public class FileSaver {
                 activity.setStatus(activityStatus);
                 break;
 
-
-            default:
-
+            case("E"):
 
                 activity = new Event(activityName, "/at" + activityDate);
                 activity.setStatus(activityStatus);
-                break;
+
+
+            default:
+                throw new FileCorruptionException();
 
             }
 
             return activity;
         } catch (DateTimeParseException e) {
             System.out.println("Error, some entries in you txt files have invalid dates or times, these entries are not recorded");
+            return null;
+        } catch (FileCorruptionException e) {
+            System.out.println(e.getMessage());
             return null;
         }
 
