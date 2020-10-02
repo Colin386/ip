@@ -202,6 +202,7 @@ public class FileSaver {
 
                 activity = new Event(activityName, "/at" + activityDate);
                 activity.setStatus(activityStatus);
+                break;
 
 
             default:

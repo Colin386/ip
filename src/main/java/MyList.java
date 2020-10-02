@@ -92,7 +92,7 @@ public class MyList {
 
 
         String dateString = eventDate.toString();
-        System.out.printf("\nHere are all the activities that are conducted on this date: %s\n", dateString);
+        System.out.printf("\nHere are all the activities that are conducted on this date: %s\n\n", dateString);
 
         for (int i = 0; i < this.getSize(); i++) {
             Task item = this.things.get(i);
@@ -112,8 +112,9 @@ public class MyList {
             }
 
             if (eventDate.equals(itemDateTime.toLocalDate())){
-                System.out.printf("\n%d.", i+1);
+                System.out.printf("%d.", i+1);
                 System.out.printf("%s", item.toString());//print only when date matches
+                System.out.printf("\n");
             }
 
 

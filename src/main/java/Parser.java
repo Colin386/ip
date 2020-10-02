@@ -79,13 +79,14 @@ public class Parser {
         String findQuery = String.join(" ", findQueryWords);
 
         int listSize = items.getSize();
-        System.out.printf("\nHere are the list of activities that contain the word \"%s\":l\n", findQuery);
+        System.out.printf("\nHere are the list of activities that contain the word \"%s\":\n\n", findQuery);
         for (int i = 0; i < listSize; i++) { //goes through each item on the list and print out the ones that match search
 
             Task currentActivity = items.retrieveTask(i);
             if (currentActivity.getName().contains(findQuery)) {
-                System.out.printf("\n%d.", i + 1);
+                System.out.printf("%d.", i + 1);
                 System.out.printf("%s", currentActivity.toString());
+                System.out.printf("\n");
             }
         }
     }
